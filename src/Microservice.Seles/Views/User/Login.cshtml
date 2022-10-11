@@ -1,0 +1,45 @@
+﻿@model Microservice.Seles.Models.DTOs.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="card text-right col-md-5">
+    <div class="card-body">
+        <h1>ورود به سایت</h1>
+
+        <hr/>
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Login" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control"/>
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control"/>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="RemmberMe"/>
+                            <label class="mx-3" asp-for="RemmberMe"></label>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="ورود" class="btn btn-primary px-5" style="float:left;"/>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

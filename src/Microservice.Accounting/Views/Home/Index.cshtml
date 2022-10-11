@@ -1,0 +1,67 @@
+﻿
+@model IEnumerable<AccountingListViewModel>
+@{
+    ViewData["Title"] = "Index";
+    int row = 0;
+}
+
+<h1>لیست فاکتور های پرداخت شد</h1>
+<br>
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">سریال فاکتور پرداخت</th>
+        <th scope="col">نام کامل</th>
+        <th scope="col">نقش</th>
+        <th scope="col">قیمت کل</th>
+        <th scope="col">تاریخ پرداخت</th>
+        <th scope="col">وضعیت پرداخت</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th scope="row">@(++row)</th>
+            <td>@item.OrderSerial</td>
+            <td>@item.FullName</td>
+            <td>
+                @if (item.Role == "admin")
+                {
+                    <span class="badge badge-warning rounded-pill px-2">
+                        ادمین
+                    </span>
+                }
+                else
+                {
+                    <span class="badge badge-info rounded-pill px-2">
+                        کاربر
+                    </span>
+                }
+            </td>
+            <td>@item.Price.ToRial()</td>
+            <td>@item.PayDate.ToShamsi()</td>
+            <td>
+                @if (item.IsPay)
+                {
+                    <span class="badge badge-success rounded-pill px-2">
+                        پرداخت شده
+                    </span>
+                }
+                else
+                {
+                    <span class="badge badge-danger rounded-pill px-3">
+                        پرداخت نشده
+                    </span>
+                }
+            </td>
+        </tr>
+    }
+    <tr class="bg-light">
+        <td colspan="3">مجموع قیمت تمام فاکتور ها :</td>
+        <td colspan="3">@Model.Sum(p => p.Price).ToRial()</td>
+        <td colspan="1"></td>
+    </tr>
+    </tbody>
+</table>

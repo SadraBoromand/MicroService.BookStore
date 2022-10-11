@@ -1,0 +1,50 @@
+﻿@model Microservice.BookStore.Models.Book
+
+@{
+    ViewData["Title"] = $"کتاب {Model.Title}";
+}
+
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <img src="/@(Model.Image)" alt="@Model.Title" class="img-thumbnail" />
+    </div>
+    <div class="col-md-9">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Auther)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Auther)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Count)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Count)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        </dl>
+
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">ویرایش</a> |
+    <a asp-action="Index">برگشت</a>
+</div>

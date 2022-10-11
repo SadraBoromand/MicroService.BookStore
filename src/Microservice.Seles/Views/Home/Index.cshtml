@@ -1,0 +1,72 @@
+﻿@model Microservice.Seles.Models.DTOs.OrderViewModel
+@{
+    ViewData["Title"] = "Show Order";
+}
+
+<div class="text-center">
+    <h1 class="display-4">نمایش سبد خرید</h1>
+    <br />
+    @if (Model?.OrderItems.Count() > 0)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>عنوان کتاب</td>
+                    <td>تعداد</td>
+                    <td>قیمت</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var orderItem in Model.OrderItems)
+                {
+                    <tr>
+                        <td>@orderItem.BookTitle</td>
+                        <td>@orderItem.Count</td>
+                        <td>@orderItem.Price.ToRial()</td>
+                        <td>
+                            <a asp-controller="Bascket"
+                               asp-action="RemoveOrderItem"
+                               asp-route-id="@orderItem.OrderItemId"
+                               class="btn btn-danger btn-sm">حذف</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tr>
+                <td colspan="1">وضعیت پرداخت :</td>
+                <td colspan="1">
+                    @if (Model.IsPay)
+                    {
+                        <span class="badge badge-success rounded-pill p-2">پرداخت شده</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-warning rounded-pill p-2">پرداخت نشده</span>
+                    }
+                </td>
+                <td colspan="1">
+                    مجموع :
+                    @Model.OrderItems.Sum(oi => oi.Price).ToRial()
+                </td>
+                <td colspan="1">
+                    <a asp-controller="Bascket"
+                       asp-action="Payment"
+                       asp-route-userSerial="@Model.UserSerial"
+                       asp-route-orderId="@Model.OrderId"
+                       class="btn btn-success btn-block">پرداخت</a>
+                </td>
+            </tr>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <h2>سبد خرید شما خالی می باشد</h2>
+            <hr />
+            <p>
+                 از میکروسرویس کتابفروشی خرید خود را انجام دهید
+            </p>
+        </div>
+    }
+</div>

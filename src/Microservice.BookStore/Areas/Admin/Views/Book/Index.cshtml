@@ -1,0 +1,60 @@
+@model IEnumerable<Microservice.BookStore.Models.Book>
+
+@{
+    ViewData["Title"] = "لیست کتاب ها";
+}
+
+<h1 class="text-black">لیست کتاب ها</h1>
+
+<p>
+    <a class="btn btn-success" asp-action="Create">افزودن کتاب جدید</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Count)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Auther)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Auther)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <img src="/@(item.Image)" alt="@item.Title" width="200" class="img-thumbnail" />
+                </td>
+                <td>
+                    <a asp-controller="Book" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">ویرایش</a> |
+                    <a asp-controller="Book" asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">مشاهده</a> |
+                    <a asp-controller="Book" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

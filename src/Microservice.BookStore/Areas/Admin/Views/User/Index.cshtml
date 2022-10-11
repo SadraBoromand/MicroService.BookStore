@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Microservice.BookStore.Models.User>
+
+@{
+    ViewData["Title"] = "User List";
+}
+
+<h1>لیست کاربران</h1>
+
+<a class="btn btn-success btn-lg" asp-action="AddUser">
+    افزودن کاربر جدید
+</a>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    <span class="badge bg-info text-dark rounded-pill">
+                        @Html.DisplayFor(modelItem => item.Role)
+                    </span>
+                </td>
+                <td>
+                    <a asp-action="EditUser" asp-route-id="@item.Id" class="btn btn-sm btn-warning">ویرایش</a>
+                    @if (item.Role != "admin")
+                    {
+                        <a asp-action="DeleteUser" asp-route-id="@item.Id" class="btn btn-sm btn-danger">حذف</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
